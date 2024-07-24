@@ -1,0 +1,669 @@
+{
+  "info": {
+    "_postman_id": "example-id",
+    "name": "Kpop Fan Community API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/auth/register",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"username\": \"user1\",\n\t\"password\": \"password1\",\n\t\"role\": \"user\"\n}"
+            },
+            "description": "Register a new user"
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/auth/login",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"username\": \"user1\",\n\t\"password\": \"password1\"\n}"
+            },
+            "description": "Login an existing user"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"token\", jsonData.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bands",
+      "item": [
+        {
+          "name": "Create Band",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/bands",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "bands"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Seventeen",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Seventeen is a South Korean boy band formed by Pledis Entertainment.",
+                  "type": "text"
+                },
+                {
+                  "key": "members",
+                  "value": "[{\"name\": \"S.Coups\", \"role\": \"Leader\"}, {\"name\": \"Jeonghan\", \"role\": \"Lead Vocalist\"}, {\"name\": \"Joshua\", \"role\": \"Vocalist\"}]",
+                  "type": "text"
+                },
+                {
+                  "key": "playlist",
+                  "value": "[{\"song\": \"Pretty U\", \"url\": \"https://example.com/pretty-u\"}, {\"song\": \"Adore U\", \"url\": \"https://example.com/adore-u\"}]",
+                  "type": "text"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": "path/to/photo1.jpg"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": "path/to/photo2.jpg"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": "path/to/photo3.jpg"
+                }
+              ]
+            },
+            "description": "Create a new band"
+          }
+        },
+        {
+          "name": "Get Bands",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/bands",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "bands"
+              ]
+            },
+            "description": "Get all bands"
+          }
+        },
+        {
+          "name": "Update Band",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/bands/1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "bands",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Seventeen Updated",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated description.",
+                  "type": "text"
+                },
+                {
+                  "key": "members",
+                  "value": "[{\"name\": \"S.Coups\", \"role\": \"Leader\"}, {\"name\": \"Jeonghan\", \"role\": \"Lead Vocalist\"}, {\"name\": \"Joshua\", \"role\": \"Vocalist\"}]",
+                  "type": "text"
+                },
+                {
+                  "key": "playlist",
+                  "value": "[{\"song\": \"Pretty U\", \"url\": \"https://example.com/pretty-u\"}, {\"song\": \"Adore U\", \"url\": \"https://example.com/adore-u\"}]",
+                  "type": "text"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": "path/to/photo4.jpg"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": "path/to/photo5.jpg"
+                }
+              ]
+            },
+            "description": "Update an existing band"
+          }
+        },
+        {
+          "name": "Delete Band",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/bands/1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "bands",
+                "1"
+              ]
+            },
+            "description": "Delete a band"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/events",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "events"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Seventeen Concert 2023",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Seventeen World Tour 2023 in Seoul.",
+                  "type": "text"
+                },
+                {
+                  "key": "date",
+                  "value": "2023-09-20T00:00:00.000Z",
+                  "type": "text"
+                },
+                {
+                  "key": "bandId",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": "path/to/event1-photo1.jpg"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": "path/to/event1-photo2.jpg"
+                }
+              ]
+            },
+            "description": "Create a new event"
+          }
+        },
+        {
+          "name": "Get Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/events",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "events"
+              ]
+            },
+            "description": "Get all events"
+          }
+        },
+        {
+          "name": "Update Event",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/events/1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Seventeen Concert 2023 Updated",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated description.",
+                  "type": "text"
+                },
+                {
+                  "key": "date",
+                  "value": "2023-09-21T00:00:00.000Z",
+                  "type": "text"
+                },
+                {
+                  "key": "bandId",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": "path/to/event1-photo3.jpg"
+                }
+              ]
+            },
+            "description": "Update an existing event"
+          }
+        },
+        {
+          "name": "Delete Event",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/events/1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1"
+              ]
+            },
+            "description": "Delete an event"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Schedules",
+      "item": [
+        {
+          "name": "Create Schedule",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/schedules",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "schedules"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"bandId\": 1,\n\t\"date\": \"2023-09-20T00:00:00.000Z\",\n\t\"location\": \"Seoul, South Korea\"\n}"
+            },
+            "description": "Create a new schedule"
+          }
+        },
+        {
+          "name": "Get Schedules",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/schedules",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "schedules"
+              ]
+            },
+            "description": "Get all schedules"
+          }
+        },
+        {
+          "name": "Update Schedule",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/schedules/1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "schedules",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"bandId\": 1,\n\t\"date\": \"2023-09-21T00:00:00.000Z\",\n\t\"location\": \"Seoul, South Korea Updated\"\n}"
+            },
+            "description": "Update an existing schedule"
+          }
+        },
+        {
+          "name": "Delete Schedule",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/schedules/1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "schedules",
+                "1"
+              ]
+            },
+            "description": "Delete a schedule"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/users",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"username\": \"newuser\",\n\t\"password\": \"password\",\n\t\"role\": \"user\"\n}"
+            },
+            "description": "Create a new user"
+          }
+        },
+        {
+          "name": "Get Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/users",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Get all users"
+          }
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/users/1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1"
+              ]
+            },
+            "description": "Get a user by ID"
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/users/1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"username\": \"updateduser\",\n\t\"password\": \"newpassword\",\n\t\"role\": \"admin\"\n}"
+            },
+            "description": "Update a user by ID"
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/api/users/1",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1"
+              ]
+            },
+            "description": "Delete a user by ID"
+          }
+        }
+      ]
+    }
+  ]
+}
