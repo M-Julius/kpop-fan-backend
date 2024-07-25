@@ -7,9 +7,7 @@ exports.createEvent = async (req, res) => {
     let photos = [];
 
     if (req.files) {
-      req.files.forEach((file) => {
-        photos.push(file.path);
-      });
+      photos = req.files.map((file) => file.path);
     }
 
     const event = await Event.create({
@@ -69,12 +67,10 @@ exports.updateEvent = async (req, res) => {
     }
 
     if (req.files) {
-      let photos = event.photos || [];
-      req.files.forEach((file) => {
-        photos.push(file.path);
-      });
-      event.photos = photos;
+      event.photos = req.files.map((file) => file.path);
     }
+
+    console.log("EVENT PHOTOS UPDATE : ", event.photos);
 
     event.title = title;
     event.description = description;

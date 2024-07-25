@@ -5,25 +5,22 @@ exports.createBand = async (req, res) => {
     const { name, description, members, playlist } = req.body;
     let photoGroup = [];
 
-    Band.findOne({ where: { name } }).then((band) => {
-        if (band) {
-            return res.status(400).json({ error: "Band already exists" });
-        }
-        }
-    );
+    const haveBand = await Band.findOne({ where: { name } })
+
+    if (haveBand !== null) {
+      return res.status(400).json({ error: "Band already exists" });
+    }
 
     if (req.files) {
-      req.files.forEach((file) => {
-        photoGroup.push(file.path);
-      });
+      photoGroup = req.files.map((file) => file.path);
     }
 
     const band = await Band.create({
       name,
       description,
       photoGroup,
-      members,
-      playlist,
+      members: JSON.parse(members),
+      playlist: JSON.parse(playlist),
     });
     res.status(201).json({ data: band });
   } catch (error) {
@@ -64,17 +61,13 @@ exports.updateBand = async (req, res) => {
     }
 
     if (req.files) {
-      let photoGroup = band.photoGroup || [];
-      req.files.forEach((file) => {
-        photoGroup.push(file.path);
-      });
-      band.photoGroup = photoGroup;
+      band.photoGroup = req.files.map((file) => file.path);
     }
 
     band.name = name;
     band.description = description;
-    band.members = members;
-    band.playlist = playlist;
+    band.members = JSON.parse(members);
+    band.playlist = JSON.parse(playlist);
     await band.save();
     res.status(200).json({ data: band });
   } catch (error) {

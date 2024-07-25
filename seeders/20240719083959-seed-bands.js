@@ -7,19 +7,12 @@ module.exports = {
         name: 'Seventeen',
         description: 'Seventeen is a South Korean boy band formed by Pledis Entertainment.',
         photoGroup: JSON.stringify([
-          '/uploads/photo1.jpg',
-          '/uploads/photo2.jpg',
-          '/uploads/photo3.jpg'
+          'uploads/photo1.jpg',
+          'uploads/photo2.jpg',
+          'uploads/photo3.jpg'
         ]),
-        members: JSON.stringify([
-          { name: 'S.Coups', role: 'Leader' },
-          { name: 'Jeonghan', role: 'Lead Vocalist' },
-          { name: 'Joshua', role: 'Vocalist' }
-        ]),
-        playlist: JSON.stringify([
-          { song: 'Pretty U', url: 'https://example.com/pretty-u' },
-          { song: 'Adore U', url: 'https://example.com/adore-u' }
-        ]),
+        members: '[{"name":"S.Coups","role":"Leader"},{"name":"Jeonghan","role":"Lead Vocalist"},{"name":"Joshua","role":"Vocalist"}]',
+        playlist: '[{"song":"Pretty U","url":"https://example.com/pretty-u"},{"song":"Adore U","url":"https://example.com/adore-u"}]',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -27,19 +20,12 @@ module.exports = {
         name: 'ATEEZ',
         description: 'ATEEZ is a South Korean boy band formed by KQ Entertainment.',
         photoGroup: JSON.stringify([
-          '/uploads/photo4.jpg',
-          '/uploads/photo5.jpg',
-          '/uploads/photo6.jpg'
+          'uploads/photo4.jpg',
+          'uploads/photo5.jpg',
+          'uploads/photo6.jpg'
         ]),
-        members: JSON.stringify([
-          { name: 'Hongjoong', role: 'Leader' },
-          { name: 'Seonghwa', role: 'Vocalist' },
-          { name: 'Yunho', role: 'Vocalist' }
-        ]),
-        playlist: JSON.stringify([
-          { song: 'Wonderland', url: 'https://example.com/wonderland' },
-          { song: 'Answer', url: 'https://example.com/answer' }
-        ]),
+        members: '[{"name":"Hongjoong","role":"Leader"},{"name":"Seonghwa","role":"Vocalist"},{"name":"Yunho","role":"Vocalist"}]',
+        playlist: '[{"song":"Wonderland","url":"https://example.com/wonderland"},{"song":"Answer","url":"https://example.com/answer"}]',
         createdAt: new Date(),
         updatedAt: new Date()
       }
